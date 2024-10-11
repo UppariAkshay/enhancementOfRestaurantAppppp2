@@ -1,0 +1,35 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.tabsContainerUL {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  box-shadow: 5px 0px 3px 0px lightgrey;
+}
+
+.tabStyleLI {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.tabSelected {
+  color: red;
+  border-bottom: 2px solid red;
+}
