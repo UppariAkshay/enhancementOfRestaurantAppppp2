@@ -1,5 +1,6 @@
 import {Component} from 'react'
 import {AiOutlineShoppingCart} from 'react-icons/ai'
+import DishCard from './Components/DishCard/index'
 import './App.css'
 
 class App extends Component {
@@ -14,12 +15,9 @@ class App extends Component {
       'https://apis2.ccbp.in/restaurant-app/restaurant-menu-list-details',
     )
     const responseData = await response.json()
-    console.log(responseData)
 
     this.setState({tabsAndDishes: responseData[0].table_menu_list})
   }
-
-  
 
   onClickTab = event => {
     this.setState({
@@ -57,11 +55,18 @@ class App extends Component {
     const selectedTabDetails = tabsAndDishes.filter(
       eachTab => tabSelected === eachTab.menu_category_id,
     )
-    const dishes = selectedTabDetails.category_dishes
+    console.log(selectedTabDetails[0], '1')
 
-    return dishes.map(eachDish => (
-      <DishCard key={eachDish.dish_id} dishDetails={eachDish} />
-    ))
+    const tabDetails = selectedTabDetails
+    console.log(tabDetails[0], '2')
+
+    const categoryDishes = tabDetails.category_dishes
+
+    console.log(categoryDishes, '3')
+
+    // return dishes.map(eachDish => (
+    //   <DishCard key={eachDish.dish_id} dishDetails={eachDish} />
+    // ))
   }
 
   render() {
@@ -82,8 +87,7 @@ class App extends Component {
         </div>
 
         {this.displayTabs()}
-
-
+        {this.displayDishes()}
       </div>
     )
   }
