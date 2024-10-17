@@ -1,10 +1,11 @@
 import {Component} from 'react'
 import {AiOutlineShoppingCart} from 'react-icons/ai'
+import Loader from 'react-loader-spinner'
 import DishCard from './Components/DishCard/index'
 import './App.css'
 
 class App extends Component {
-  state = {tabSelected: '11', tabsAndDishes: []}
+  state = {tabSelected: '11', tabsAndDishes: [], isLoading: true}
 
   componentDidMount() {
     this.fetchMenuData()
@@ -16,7 +17,14 @@ class App extends Component {
     )
     const responseData = await response.json()
 
-    this.setState({tabsAndDishes: responseData[0].table_menu_list})
+    console.log(responseData)
+
+    if (response.ok === true) {
+      this.setState({
+        tabsAndDishes: responseData[0],
+        isLoading: false,
+      })
+    }
   }
 
   onClickTab = event => {
@@ -25,52 +33,52 @@ class App extends Component {
     })
   }
 
-  displayTabs = () => {
-    const {tabsAndDishes, tabSelected} = this.state
-    const selectedTabDetails = tabsAndDishes.filter(
-      eachTab => tabSelected === eachTab.menu_category_id,
-    )
-
+  displayTabsAndDishes = () => {
     return (
-      <ul className="tabsContainerUL">
-        {tabsAndDishes.map(eachTab => (
-          <li
-            id={eachTab.menu_category_id}
-            className={
-              tabSelected === eachTab.menu_category_id
-                ? 'tabStyleLI tabSelected'
-                : 'tabStyleLI'
-            }
-            onClick={this.onClickTab}
-          >
-            {eachTab.menu_category}
-          </li>
-        ))}
-      </ul>
+      <div style={{width: '100%'}}>
+        <div className="tabsContainerDIV">{this.displayTabs()}</div>
+
+        <ul className="dishesContainerUL">{this.displayDishes()}</ul>
+      </div>
     )
+  }
+
+  displayLoading = () => <Loader />
+
+  displayTabs() {
+    const {tabsAndDishes, tabSelected} = this.state
+
+    return tabsAndDishes.table_menu_list.map(eachTab => (
+      <button
+        id={eachTab.menu_category_id}
+        className={
+          tabSelected === eachTab.menu_category_id
+            ? 'removeDefaultBtnStyles tabSelected'
+            : 'removeDefaultBtnStyles'
+        }
+        onClick={this.onClickTab}
+      >
+        {eachTab.menu_category}
+      </button>
+    ))
   }
 
   displayDishes = () => {
     const {tabSelected, tabsAndDishes} = this.state
-    const selectedTabDetails = tabsAndDishes.filter(
+    const selectedTabDetails = tabsAndDishes.table_menu_list.filter(
       eachTab => tabSelected === eachTab.menu_category_id,
     )
-    console.log(selectedTabDetails[0], '1')
 
-    const tabDetails = selectedTabDetails
-    console.log(tabDetails[0], '2')
+    const dishes = selectedTabDetails[0].category_dishes
+    console.log(dishes)
 
-    const categoryDishes = tabDetails.category_dishes
-
-    console.log(categoryDishes, '3')
-
-    // return dishes.map(eachDish => (
-    //   <DishCard key={eachDish.dish_id} dishDetails={eachDish} />
-    // ))
+    return dishes.map(eachDish => (
+      <DishCard key={eachDish.dish_id} dishDetails={eachDish} />
+    ))
   }
 
   render() {
-    const {tabSelected} = this.state
+    const {tabSelected, isLoading} = this.state
 
     return (
       <div>
@@ -79,15 +87,19 @@ class App extends Component {
           <div>
             <h1>
               My orders{' '}
-              <span>
+              <div>
                 <AiOutlineShoppingCart />
-              </span>
+                <p className="cartCounter">0</p>
+              </div>
             </h1>
           </div>
         </div>
 
-        {this.displayTabs()}
-        {this.displayDishes()}
+        <div className="tabsAndDishesContainerDIV">
+          {isLoading === true
+            ? this.displayLoading()
+            : this.displayTabsAndDishes()}
+        </div>
       </div>
     )
   }

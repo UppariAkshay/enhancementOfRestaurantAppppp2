@@ -1,0 +1,61 @@
+.dishCard {
+  list-style-type: none;
+  border: 1px solid grey;
+  padding: 5px;
+  border-radius: 3px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.veg {
+  height: 20px;
+  width: 20px;
+  border-radius: 10px;
+  border: 1px solid green;
+  background-color: green;
+}
+
+.nonVeg {
+  background-color: brown;
+  height: 20px;
+  width: 20px;
+  border-radius: 10px;
+  border: 2px solid brown;
+}
+
+.dishCalories {
+  color: orange;
+  font-weight: 700;
+}
+
+.dishImage {
+  height: 100px;
+  width: 100px;
+}
+
+.quantityIncDecElementDIV {
+  background-color: green;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100px;
+  border-radius: 30px;
+}
+
+.incDecBtn {
+  background: transparent;
+  border: 0px;
+  color: white;
+  cursor: pointer;
+}
+
+.notAvailableP {
+  color: red;
+}
+
+.customizationAvailable {
+  color: blue;
+}

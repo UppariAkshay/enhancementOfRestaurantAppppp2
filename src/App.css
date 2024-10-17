@@ -17,19 +17,40 @@ body {
   justify-content: space-between;
 }
 
-.tabsContainerUL {
+.tabsAndDishesContainerDIV {
+  display: flex;
+  flex-direction: row;
+}
+
+.tabsContainerDIV {
   display: flex;
   flex-direction: row;
   list-style-type: none;
   box-shadow: 5px 0px 3px 0px lightgrey;
+  width: 100%;
 }
 
-.tabStyleLI {
+.removeDefaultBtnStyles {
   padding: 10px;
   cursor: pointer;
+  background: transparent;
+  border: 0px;
 }
 
 .tabSelected {
   color: red;
   border-bottom: 2px solid red;
+}
+
+.dishesContainerUL {
+}
+
+.cartCounter {
+  background-color: orange;
+  color: white;
+  display: inline;
+  height: 20px;
+  width: 20px;
+  font-size: 15px;
+  border-radius: 10px;
 }
