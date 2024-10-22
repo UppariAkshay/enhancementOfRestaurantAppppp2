@@ -36,9 +36,9 @@ class App extends Component {
   displayTabsAndDishes = () => {
     return (
       <div style={{width: '100%'}}>
-        <div className="tabsContainerDIV">{this.displayTabs()}</div>
+        <div className='tabsContainerDIV'>{this.displayTabs()}</div>
 
-        <ul className="dishesContainerUL">{this.displayDishes()}</ul>
+        <ul className='dishesContainerUL'>{this.displayDishes()}</ul>
       </div>
     )
   }
@@ -78,24 +78,24 @@ class App extends Component {
   }
 
   render() {
-    const {tabSelected, isLoading} = this.state
+    const {tabSelected, isLoading, tabsAndDishes} = this.state
 
     return (
       <div>
-        <div className="header">
-          <h1>UNI Resto Cafe</h1>
+        <div className='header'>
+          <h1>{tabsAndDishes.restaurant_name}</h1>
           <div>
             <h1>
               My orders{' '}
-              <div>
-                <AiOutlineShoppingCart />
-                <p className="cartCounter">0</p>
-              </div>
+              <span>
+                <AiOutlineShoppingCart size={30} />
+                <p className='cartCounter'>0</p>
+              </span>
             </h1>
           </div>
         </div>
 
-        <div className="tabsAndDishesContainerDIV">
+        <div className='tabsAndDishesContainerDIV'>
           {isLoading === true
             ? this.displayLoading()
             : this.displayTabsAndDishes()}

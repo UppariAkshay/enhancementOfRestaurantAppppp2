@@ -54,7 +54,7 @@ class DishCard extends Component {
           )}
 
           <p className="customizationAvailable">
-            {dishDetails.addonCat.length > 0 ? 'Customization available' : ''}
+            {dishDetails.addonCat.length > 0 ? 'Customizations available' : ''}
           </p>
         </div>
 
