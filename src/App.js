@@ -1,106 +1,53 @@
 import {Component} from 'react'
-import {AiOutlineShoppingCart} from 'react-icons/ai'
-import Loader from 'react-loader-spinner'
-import DishCard from './Components/DishCard/index'
+import {Route, Switch, BrowserRouter} from 'react-router-dom'
+import ProtectedRoute from './Components/ProtectedRoute'
+import Home from './Components/Home'
+import Cart from './Components/Cart'
+import Login from './Components/Login'
+import RestaurantAppContext from './Context/RestaurantAppContext'
 import './App.css'
 
 class App extends Component {
-  state = {tabSelected: '11', tabsAndDishes: [], isLoading: true}
+  state = {cartList: []}
 
-  componentDidMount() {
-    this.fetchMenuData()
+  removeAllcartItems = () => {
+    this.setState({cartList: []})
   }
 
-  fetchMenuData = async () => {
-    const response = await fetch(
-      'https://apis2.ccbp.in/restaurant-app/restaurant-menu-list-details',
+  addCartItem = newProduct => {
+    this.setState(prevState => ({
+      cartList: [...prevState.cartList, newProduct],
+    }))
+  }
+
+  removeCartItem = productId => {
+    const {cartList} = this.state
+    const updatedCartList = cartList.filter(
+      eachProduct => eachProduct.id !== productId,
     )
-    const responseData = await response.json()
-
-    console.log(responseData)
-
-    if (response.ok === true) {
-      this.setState({
-        tabsAndDishes: responseData[0],
-        isLoading: false,
-      })
-    }
-  }
-
-  onClickTab = event => {
-    this.setState({
-      tabSelected: event.target.id,
-    })
-  }
-
-  displayTabsAndDishes = () => {
-    return (
-      <div style={{width: '100%'}}>
-        <div className='tabsContainerDIV'>{this.displayTabs()}</div>
-
-        <ul className='dishesContainerUL'>{this.displayDishes()}</ul>
-      </div>
-    )
-  }
-
-  displayLoading = () => <Loader />
-
-  displayTabs() {
-    const {tabsAndDishes, tabSelected} = this.state
-
-    return tabsAndDishes.table_menu_list.map(eachTab => (
-      <button
-        id={eachTab.menu_category_id}
-        className={
-          tabSelected === eachTab.menu_category_id
-            ? 'removeDefaultBtnStyles tabSelected'
-            : 'removeDefaultBtnStyles'
-        }
-        onClick={this.onClickTab}
-      >
-        {eachTab.menu_category}
-      </button>
-    ))
-  }
-
-  displayDishes = () => {
-    const {tabSelected, tabsAndDishes} = this.state
-    const selectedTabDetails = tabsAndDishes.table_menu_list.filter(
-      eachTab => tabSelected === eachTab.menu_category_id,
-    )
-
-    const dishes = selectedTabDetails[0].category_dishes
-    console.log(dishes)
-
-    return dishes.map(eachDish => (
-      <DishCard key={eachDish.dish_id} dishDetails={eachDish} />
-    ))
+    this.setState({cartList: updatedCartList})
   }
 
   render() {
-    const {tabSelected, isLoading, tabsAndDishes} = this.state
+    const {cartList} = this.state
 
     return (
-      <div>
-        <div className='header'>
-          <h1>{tabsAndDishes.restaurant_name}</h1>
-          <div>
-            <h1>
-              My orders{' '}
-              <span>
-                <AiOutlineShoppingCart size={30} />
-                <p className='cartCounter'>0</p>
-              </span>
-            </h1>
-          </div>
-        </div>
-
-        <div className='tabsAndDishesContainerDIV'>
-          {isLoading === true
-            ? this.displayLoading()
-            : this.displayTabsAndDishes()}
-        </div>
-      </div>
+      <RestaurantAppContext.Provider
+        value={{
+          cartList,
+          removeAllCartItems: this.removeAllcartItems,
+          addCartItem: this.addCartItem,
+          removeCartItem: this.removeCartItem,
+        }}
+      >
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/login" component={Login} />
+            <ProtectedRoute exact path="/" component={Home} />
+            <ProtectedRoute exact path="/cart" component={Cart} />
+          </Switch>
+        </BrowserRouter>
+      </RestaurantAppContext.Provider>
     )
   }
 }

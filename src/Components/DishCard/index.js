@@ -1,24 +1,9 @@
 import {Component} from 'react'
+import RestaurantAppContext from '../../Context/RestaurantAppContext'
 import './index.css'
 
 class DishCard extends Component {
   state = {quantityCount: 0}
-
-  displayAddonCatButton() {
-    const {quantityCount} = this.state
-
-    return (
-      <div className="quantityIncDecElementDIV">
-        <button className="incDecBtn" onClick={this.decreaseQuantity}>
-          -
-        </button>
-        <p>{quantityCount}</p>
-        <button className="incDecBtn" onClick={this.increaseQuantity}>
-          +
-        </button>
-      </div>
-    )
-  }
 
   decreaseQuantity = () => {
     this.setState(prevState => ({
@@ -32,6 +17,33 @@ class DishCard extends Component {
     }))
   }
 
+  displayAddonCatButton() {
+    const {quantityCount} = this.state
+
+    return (
+      <RestaurantAppContext.Consumer>
+        {value => {
+          const {addCartItem} = value
+
+          return (
+            <>
+              <div className="quantityIncDecElementDIV">
+                <button className="incDecBtn" onClick={this.decreaseQuantity}>
+                  -
+                </button>
+                <p>{quantityCount}</p>
+                <button className="incDecBtn" onClick={this.increaseQuantity}>
+                  +
+                </button>
+              </div>
+              <button>ADD TO CART</button>
+            </>
+          )
+        }}
+      </RestaurantAppContext.Consumer>
+    )
+  }
+
   render() {
     const {dishDetails} = this.props
 
@@ -40,7 +52,9 @@ class DishCard extends Component {
     return (
       <li className="dishCard">
         <div>
-          <div className={dishDetails.dish_Type === 2 ? 'veg' : 'nonVeg'}></div>
+          <div className={dishDetails.dish_Type === 2 ? 'veg' : 'nonVeg'}>
+            .
+          </div>
           <h1>{dishDetails.dish_name}</h1>
           <p>
             {dishDetails.dish_currency} {dishDetails.dish_price}
