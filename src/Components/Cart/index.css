@@ -1,0 +1,9 @@
+.cartItemLI {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.dishImageIMG {
+  height: 100px;
+}

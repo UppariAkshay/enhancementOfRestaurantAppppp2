@@ -17,13 +17,21 @@ class DishCard extends Component {
     }))
   }
 
-  displayAddonCatButton() {
+  displayAddonCatButton = () => {
     const {quantityCount} = this.state
+    const {dishDetails} = this.props
+    const product = {...dishDetails, quantity: quantityCount}
 
     return (
       <RestaurantAppContext.Consumer>
         {value => {
           const {addCartItem} = value
+
+          const onClickAddToCart = () => {
+            if (quantityCount > 0 && dishDetails.dish_Availability) {
+              addCartItem(product)
+            }
+          }
 
           return (
             <>
@@ -36,7 +44,7 @@ class DishCard extends Component {
                   +
                 </button>
               </div>
-              <button>ADD TO CART</button>
+              <button onClick={onClickAddToCart}>ADD TO CART</button>
             </>
           )
         }}

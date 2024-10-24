@@ -40,8 +40,10 @@ class Login extends Component {
     return (
       <form>
         <h1>Login</h1>
-        <input onChange={this.onChangeUserName} type="text" />
-        <input onChange={this.onChangePassword} type="password" />
+        <label for="username">USERNAME</label>
+        <input id='username' onChange={this.onChangeUserName} type="text" />
+        <label for='password'>PASSWORD</label>
+        <input id='password' onChange={this.onChangePassword} type="password" />
         <button onClick={this.onClickLogin}>Login</button>
         {isError ? <p>{errorMsg}</p> : null}
       </form>
