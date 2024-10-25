@@ -4,7 +4,7 @@ import {AiOutlineShoppingCart} from 'react-icons/ai'
 import Loader from 'react-loader-spinner'
 import Cookie from 'js-cookie'
 import DishCard from '../DishCard'
-import RestaurantAppContext from '../.././Context/RestaurantAppContext'
+import RestaurantAppContext from '../../Context/RestaurantAppContext'
 
 import './index.css'
 
@@ -67,6 +67,31 @@ class Home extends Component {
     history.replace('/login')
   }
 
+  onClickCartIcon = () => {
+    const {history} = this.props
+
+    history.push('/cart')
+  }
+
+  displayCartIconAndCount = () => (
+    <RestaurantAppContext.Consumer>
+      {value => {
+        const {cartList} = value
+
+        return (
+          <>
+            <button data-testid="cart" onClick={this.onClickCartIcon}>
+              <span>
+                <AiOutlineShoppingCart size={30} />
+              </span>
+            </button>
+            <p className="cartCounter">{cartList.length}</p>
+          </>
+        )
+      }}
+    </RestaurantAppContext.Consumer>
+  )
+
   displayTabs() {
     const {tabsAndDishes, tabSelected} = this.state
 
@@ -84,31 +109,6 @@ class Home extends Component {
       </button>
     ))
   }
-
-  onClickCartIcon = () => {
-    const {history} = this.props
-
-    history.push('/cart')
-  }
-
-  displayCartIconAndCount = () => (
-    <RestaurantAppContext.Consumer>
-      {value => {
-        const {cartList} = value
-
-        return (
-          <>
-            <button onClick={this.onClickCartIcon}>
-              <span>
-                <AiOutlineShoppingCart size={30} />
-              </span>
-            </button>
-            <p className="cartCounter">{cartList.length}</p>
-          </>
-        )
-      }}
-    </RestaurantAppContext.Consumer>
-  )
 
   render() {
     const {tabSelected, isLoading, tabsAndDishes} = this.state

@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import {Redirect} from 'react-router-dom'
 import Cookie from 'js-cookie'
 import './index.css'
 
@@ -34,19 +35,29 @@ class Login extends Component {
     }
   }
 
-  render() {
+  displayLoginForm = () => {
     const {isError, errorMsg} = this.state
 
     return (
       <form>
         <h1>Login</h1>
         <label for="username">USERNAME</label>
-        <input id='username' onChange={this.onChangeUserName} type="text" />
-        <label for='password'>PASSWORD</label>
-        <input id='password' onChange={this.onChangePassword} type="password" />
+        <input id="username" onChange={this.onChangeUserName} type="text" />
+        <label for="password">PASSWORD</label>
+        <input id="password" onChange={this.onChangePassword} type="password" />
         <button onClick={this.onClickLogin}>Login</button>
         {isError ? <p>{errorMsg}</p> : null}
       </form>
+    )
+  }
+
+  render() {
+    const jwtToken = Cookie.get('jwt_token')
+
+    return jwtToken !== undefined ? (
+      <Redirect to="/" />
+    ) : (
+      this.displayLoginForm()
     )
   }
 }

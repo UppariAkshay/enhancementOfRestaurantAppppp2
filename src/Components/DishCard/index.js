@@ -6,9 +6,12 @@ class DishCard extends Component {
   state = {quantityCount: 0}
 
   decreaseQuantity = () => {
-    this.setState(prevState => ({
-      quantityCount: prevState.quantityCount - 1,
-    }))
+    const {quantityCount} = this.state
+    if (quantityCount > 0) {
+      this.setState(prevState => ({
+        quantityCount: prevState.quantityCount - 1,
+      }))
+    }
   }
 
   increaseQuantity = () => {

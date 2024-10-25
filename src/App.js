@@ -24,7 +24,10 @@ class App extends Component {
       this.setState(prevState => ({
         cartList: prevState.cartList.map(eachProduct =>
           eachProduct.dish_id === newProduct.dish_id
-            ? {...eachProduct, quantity: eachProduct.quantity + 1}
+            ? {
+                ...eachProduct,
+                quantity: eachProduct.quantity + newProduct.quantity,
+              }
             : eachProduct,
         ),
       }))
@@ -105,12 +108,7 @@ class App extends Component {
         <BrowserRouter>
           <Switch>
             <Route exact path="/login" component={Login} />
-            <ProtectedRoute
-              exact
-              path="/"
-              component={Home}
-              cartQuantity={cartList.length}
-            />
+            <ProtectedRoute exact path="/" component={Home} />
             <ProtectedRoute exact path="/cart" component={Cart} />
           </Switch>
         </BrowserRouter>
