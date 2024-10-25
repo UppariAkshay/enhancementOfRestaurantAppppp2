@@ -14,7 +14,7 @@ class Login extends Component {
     this.setState({password: event.target.value})
   }
 
-  onClickLogin = async event => {
+  onSubmitLogin = async event => {
     event.preventDefault()
 
     const {userName, password} = this.state
@@ -39,13 +39,13 @@ class Login extends Component {
     const {isError, errorMsg} = this.state
 
     return (
-      <form>
+      <form onSubmit={this.onSubmitLogin}>
         <h1>Login</h1>
-        <label for="username">USERNAME</label>
+        <label htmlFor="username">USERNAME</label>
         <input id="username" onChange={this.onChangeUserName} type="text" />
-        <label for="password">PASSWORD</label>
+        <label htmlFor="password">PASSWORD</label>
         <input id="password" onChange={this.onChangePassword} type="password" />
-        <button onClick={this.onClickLogin}>Login</button>
+        <button type="submit">Login</button>
         {isError ? <p>{errorMsg}</p> : null}
       </form>
     )

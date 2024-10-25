@@ -6,12 +6,10 @@ class DishCard extends Component {
   state = {quantityCount: 0}
 
   decreaseQuantity = () => {
-    const {quantityCount} = this.state
-    if (quantityCount > 0) {
-      this.setState(prevState => ({
-        quantityCount: prevState.quantityCount - 1,
-      }))
-    }
+    this.setState(prevState => ({
+      quantityCount:
+        prevState.quantityCount > 0 ? prevState.quantityCount - 1 : 0,
+    }))
   }
 
   increaseQuantity = () => {
@@ -36,20 +34,18 @@ class DishCard extends Component {
             }
           }
 
-          return (
-            <>
-              <div className="quantityIncDecElementDIV">
-                <button className="incDecBtn" onClick={this.decreaseQuantity}>
-                  -
-                </button>
-                <p>{quantityCount}</p>
-                <button className="incDecBtn" onClick={this.increaseQuantity}>
-                  +
-                </button>
-              </div>
-              <button onClick={onClickAddToCart}>ADD TO CART</button>
-            </>
-          )
+          return <div>
+            <div className="quantityIncDecElementDIV">
+              <button className="incDecBtn" onClick={this.decreaseQuantity}>
+                -
+              </button>
+              <p>{quantityCount}</p>
+              <button className="incDecBtn" onClick={this.increaseQuantity}>
+                +
+              </button>
+            </div>
+            <button onClick={onClickAddToCart}>ADD TO CART</button>
+          </div>
         }}
       </RestaurantAppContext.Consumer>
     )
@@ -57,6 +53,7 @@ class DishCard extends Component {
 
   render() {
     const {dishDetails} = this.props
+    const {quantityCount} = this.state
 
     console.log(dishDetails)
 
