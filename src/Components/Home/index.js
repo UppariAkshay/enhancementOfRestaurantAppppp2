@@ -39,9 +39,9 @@ class Home extends Component {
 
   displayTabsAndDishes = () => (
     <div style={{width: '100%'}}>
-      <div className="tabsContainerDIV">{this.displayTabs()}</div>
+      <div className='tabsContainerDIV'>{this.displayTabs()}</div>
 
-      <ul className="dishesContainerUL">{this.displayDishes()}</ul>
+      <ul className='dishesContainerUL'>{this.displayDishes()}</ul>
     </div>
   )
 
@@ -80,12 +80,12 @@ class Home extends Component {
 
         return (
           <>
-            <button data-testid="cart" onClick={this.onClickCartIcon}>
+            <button data-testid='cart' onClick={this.onClickCartIcon}>
               <span>
                 <AiOutlineShoppingCart size={30} />
               </span>
             </button>
-            <p className="cartCounter">{cartList.length}</p>
+            <p className='cartCounter'>{cartList.length}</p>
           </>
         )
       }}
@@ -116,7 +116,7 @@ class Home extends Component {
 
     return (
       <div>
-        <div className="header">
+        <div className='header'>
           <h1>{tabsAndDishes.restaurant_name}</h1>
           <div>
             <h1>My orders {this.displayCartIconAndCount()}</h1>
@@ -124,7 +124,7 @@ class Home extends Component {
           </div>
         </div>
 
-        <div className="tabsAndDishesContainerDIV">
+        <div className='tabsAndDishesContainerDIV'>
           {isLoading === true
             ? this.displayLoading()
             : this.displayTabsAndDishes()}

@@ -34,18 +34,20 @@ class DishCard extends Component {
             }
           }
 
-          return <div>
-            <div className="quantityIncDecElementDIV">
-              <button className="incDecBtn" onClick={this.decreaseQuantity}>
-                -
-              </button>
-              <p>{quantityCount}</p>
-              <button className="incDecBtn" onClick={this.increaseQuantity}>
-                +
-              </button>
+          return (
+            <div>
+              <div className="quantityIncDecElementDIV">
+                <button className="incDecBtn" onClick={this.decreaseQuantity}>
+                  -
+                </button>
+                <p>{quantityCount}</p>
+                <button className="incDecBtn" onClick={this.increaseQuantity}>
+                  +
+                </button>
+              </div>
+              <button onClick={onClickAddToCart}>ADD TO CART</button>
             </div>
-            <button onClick={onClickAddToCart}>ADD TO CART</button>
-          </div>
+          )
         }}
       </RestaurantAppContext.Consumer>
     )

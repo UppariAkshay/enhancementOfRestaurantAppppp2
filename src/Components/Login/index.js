@@ -41,11 +41,11 @@ class Login extends Component {
     return (
       <form onSubmit={this.onSubmitLogin}>
         <h1>Login</h1>
-        <label htmlFor="username">USERNAME</label>
-        <input id="username" onChange={this.onChangeUserName} type="text" />
-        <label htmlFor="password">PASSWORD</label>
-        <input id="password" onChange={this.onChangePassword} type="password" />
-        <button type="submit">Login</button>
+        <label htmlFor='username'>USERNAME</label>
+        <input id='username' onChange={this.onChangeUserName} type='text' />
+        <label htmlFor='password'>PASSWORD</label>
+        <input id='password' onChange={this.onChangePassword} type='password' />
+        <button type='submit'>Login</button>
         {isError ? <p>{errorMsg}</p> : null}
       </form>
     )
@@ -55,7 +55,7 @@ class Login extends Component {
     const jwtToken = Cookie.get('jwt_token')
 
     return jwtToken !== undefined ? (
-      <Redirect to="/" />
+      <Redirect to='/' />
     ) : (
       this.displayLoginForm()
     )

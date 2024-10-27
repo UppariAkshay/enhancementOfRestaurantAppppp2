@@ -38,14 +38,6 @@ class App extends Component {
     }
   }
 
-  removeCartItem = productId => {
-    const {cartList} = this.state
-    const updatedCartList = cartList.filter(
-      eachProduct => eachProduct.id !== productId,
-    )
-    this.setState({cartList: updatedCartList})
-  }
-
   incrementCartItemQuantity = productId => {
     const {cartList} = this.state
 
@@ -107,9 +99,9 @@ class App extends Component {
       >
         <BrowserRouter>
           <Switch>
-            <Route exact path="/login" component={Login} />
-            <ProtectedRoute exact path="/" component={Home} />
-            <ProtectedRoute exact path="/cart" component={Cart} />
+            <Route exact path='/login' component={Login} />
+            <ProtectedRoute exact path='/' component={Home} />
+            <ProtectedRoute exact path='/cart' component={Cart} />
           </Switch>
         </BrowserRouter>
       </RestaurantAppContext.Provider>
