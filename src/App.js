@@ -1,10 +1,11 @@
 import {Component} from 'react'
-import {Route, Switch, BrowserRouter} from 'react-router-dom'
+import {Route, Switch, BrowserRouter, Redirect} from 'react-router-dom'
 import ProtectedRoute from './Components/ProtectedRoute'
 import Home from './Components/Home'
 import Cart from './Components/Cart'
 import Login from './Components/Login'
 import RestaurantAppContext from './Context/RestaurantAppContext'
+import NotFound from './Components/NotFound'
 import './App.css'
 
 class App extends Component {
@@ -102,6 +103,8 @@ class App extends Component {
             <Route exact path='/login' component={Login} />
             <ProtectedRoute exact path='/' component={Home} />
             <ProtectedRoute exact path='/cart' component={Cart} />
+            <ProtectedRoute exact path='/not-found' component={NotFound} />
+            <Redirect to='/not-found' />
           </Switch>
         </BrowserRouter>
       </RestaurantAppContext.Provider>

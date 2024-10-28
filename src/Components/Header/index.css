@@ -1,0 +1,22 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.cartCounter {
+  background-color: orange;
+
+  color: white;
+
+  display: inline;
+
+  height: 20px;
+
+  width: 20px;
+
+  font-size: 15px;
+
+  border-radius: 10px;
+  padding: 10px;
+}

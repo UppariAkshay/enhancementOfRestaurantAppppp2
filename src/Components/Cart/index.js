@@ -1,5 +1,6 @@
 import {Component} from 'react'
 import RestaurantAppContext from '../../Context/RestaurantAppContext'
+import Header from '../Header'
 import './index.css'
 
 class Cart extends Component {
@@ -59,7 +60,7 @@ class Cart extends Component {
               <img src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-empty-cart-img.png" />
             )}
             {cartList.map(eachProduct => CartItem(eachProduct))}
-            <button onClick={removeAllCartItems}>Remove All</button>
+            {cartList.length > 0 && <button onClick={removeAllCartItems}>Remove All</button>}
           </>
         )
       }}
@@ -69,6 +70,7 @@ class Cart extends Component {
   render() {
     return (
       <div>
+        <Header restaurantName="UNI Resto Cafe" />
         <h1>Cart Items</h1>
         <ul>{this.displayCartItems()}</ul>
       </div>

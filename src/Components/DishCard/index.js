@@ -5,19 +5,6 @@ import './index.css'
 class DishCard extends Component {
   state = {quantityCount: 0}
 
-  decreaseQuantity = () => {
-    this.setState(prevState => ({
-      quantityCount:
-        prevState.quantityCount > 0 ? prevState.quantityCount - 1 : 0,
-    }))
-  }
-
-  increaseQuantity = () => {
-    this.setState(prevState => ({
-      quantityCount: prevState.quantityCount + 1,
-    }))
-  }
-
   displayAddonCatButton = () => {
     const {quantityCount} = this.state
     const {dishDetails} = this.props
@@ -34,14 +21,27 @@ class DishCard extends Component {
             }
           }
 
+          const decreaseQuantity = () => {
+            this.setState(prevState => ({
+              quantityCount:
+                prevState.quantityCount > 0 ? prevState.quantityCount - 1 : 0,
+            }))
+          }
+
+          const increaseQuantity = () => {
+            this.setState(prevState => ({
+              quantityCount: prevState.quantityCount + 1,
+            }))
+          }
+
           return (
             <div>
               <div className="quantityIncDecElementDIV">
-                <button className="incDecBtn" onClick={this.decreaseQuantity}>
+                <button className="incDecBtn" onClick={decreaseQuantity}>
                   -
                 </button>
                 <p>{quantityCount}</p>
-                <button className="incDecBtn" onClick={this.increaseQuantity}>
+                <button className="incDecBtn" onClick={increaseQuantity}>
                   +
                 </button>
               </div>
